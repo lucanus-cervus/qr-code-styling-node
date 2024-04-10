@@ -22,6 +22,12 @@ export default class QRCornerSquare {
       case cornerSquareTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
+      case cornerSquareTypes.oneClassy:
+        drawFunction = this._drawOneClassy;
+        break;
+      case cornerSquareTypes.classy:
+        drawFunction = this._drawClassy;
+        break;
       case cornerSquareTypes.dot:
       default:
         drawFunction = this._drawDot;
@@ -96,6 +102,60 @@ export default class QRCornerSquare {
     });
   }
 
+  _basicOneClassy(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+    const halfSize = size / 2;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.beginPath();
+        context.arc(-dotSize, -dotSize, 2.5 * dotSize, Math.PI, -Math.PI / 2);
+        context.lineTo(dotSize, -3.5 * dotSize);
+        context.arc(dotSize, -dotSize, 2.5 * dotSize, -Math.PI / 2, 0);
+        context.lineTo(halfSize, halfSize);
+        context.lineTo(halfSize - 4.5 * dotSize, halfSize);
+        context.arc(-dotSize, dotSize, 2.5 * dotSize, Math.PI / 2, Math.PI);
+        context.lineTo(-3.5 * dotSize, -dotSize);
+
+        context.arc(-dotSize, -dotSize, 1.5 * dotSize, Math.PI, -Math.PI / 2);
+        context.lineTo(dotSize, -2.5 * dotSize);
+        context.arc(dotSize, -dotSize, 1.5 * dotSize, -Math.PI / 2, 0);
+        context.lineTo(2.5 * dotSize, 2.5 * dotSize);
+        context.lineTo(-1.5 * dotSize, 2.5 * dotSize);
+        context.arc(-dotSize, dotSize, 1.5 * dotSize, Math.PI / 2, Math.PI);
+        context.lineTo(-2.5 * dotSize, -dotSize);
+      }
+    });
+  }
+
+  _basicClassy(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+    const halfSize = size / 2;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-halfSize, -halfSize);
+        context.lineTo(halfSize - 4.5 * dotSize, -halfSize);
+        context.arc(dotSize, -dotSize, 2.5 * dotSize, -Math.PI / 2, 0);
+        context.lineTo(halfSize, halfSize);
+        context.lineTo(halfSize - 4.5 * dotSize, halfSize);
+        context.arc(-dotSize, dotSize, 2.5 * dotSize, Math.PI / 2, Math.PI);
+        context.lineTo(-halfSize, -halfSize);
+
+        context.moveTo(-halfSize + dotSize, -halfSize + dotSize);
+        context.lineTo(1.5 * dotSize, -2.5 * dotSize);
+        context.arc(dotSize, -dotSize, 1.5 * dotSize, -Math.PI / 2, 0);
+        context.lineTo(2.5 * dotSize, 2.5 * dotSize);
+        context.arc(-dotSize, dotSize, 1.5 * dotSize, Math.PI / 2, Math.PI);
+        context.lineTo(-2.5 * dotSize, -2.5 * dotSize);
+      }
+    });
+  }
+
   _drawDot({ x, y, size, context, rotation }: DrawArgsCanvas): void {
     this._basicDot({ x, y, size, context, rotation });
   }
@@ -106,5 +166,13 @@ export default class QRCornerSquare {
 
   _drawExtraRounded({ x, y, size, context, rotation }: DrawArgsCanvas): void {
     this._basicExtraRounded({ x, y, size, context, rotation });
+  }
+
+  _drawOneClassy({ x, y, size, context, rotation }: DrawArgsCanvas): void {
+    this._basicOneClassy({ x, y, size, context, rotation });
+  }
+
+  _drawClassy({ x, y, size, context, rotation }: DrawArgsCanvas): void {
+    this._basicClassy({ x, y, size, context, rotation });
   }
 }

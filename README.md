@@ -139,19 +139,19 @@ gradient|object|
 
 `options.cornersSquareOptions` structure
 
-Property|Type                                     |Default Value|Description
---------|-----------------------------------------|-------------|-----------------
-color   |string                                   |             |Color of Corners Square
-gradient|object                                   |             |Gradient of Corners Square
-type    |string (`'dot' 'square' 'extra-rounded'`)|             |Style of Corners Square
+Property|Type                                                           |Default Value|Description
+--------|---------------------------------------------------------------|-------------|-----------------
+color   |string                                                         |             |Color of Corners Square
+gradient|object                                                         |             |Gradient of Corners Square
+type    |string (`'dot' 'square' 'extra-rounded' 'one-classy' 'classy'`)|             |Style of Corners Square
 
 `options.cornersDotOptions` structure
 
-Property|Type                     |Default Value|Description
---------|-------------------------|-------------|-----------------
-color   |string                   |             |Color of Corners Dot
-gradient|object                   |             |Gradient of Corners Dot
-type    |string (`'dot' 'square'`)|             |Style of Corners Dot
+Property|Type                                                     |Default Value|Description
+--------|---------------------------------------------------------|-------------|-----------------
+color   |string                                                   |             |Color of Corners Dot
+gradient|object                                                   |             |Gradient of Corners Dot
+type    |string (`'dot' 'square' 'extra-rounded' 'one-classy' 'classy'`)|             |Style of Corners Dot
 
 Gradient structure
 
