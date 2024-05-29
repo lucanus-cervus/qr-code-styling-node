@@ -1,19 +1,17 @@
 import { RequiredOptions } from "./QROptions";
-import { QRCode, FilterFunction, Gradient } from "../types";
+import { QRCode, FilterFunction, Gradient, Window, Canvas } from "../types";
 export default class QRSVG {
+    _canvas?: Canvas;
+    _window: Window;
     _element: SVGElement;
-    _style: SVGStyleElement;
     _defs: SVGElement;
     _dotsClipPath?: SVGElement;
     _cornersSquareClipPath?: SVGElement;
     _cornersDotClipPath?: SVGElement;
-    _dots?: SVGElement;
-    _cornerSquares?: SVGElement;
-    _corners?: SVGElement;
-    _cornerDots?: SVGElement;
     _options: RequiredOptions;
     _qr?: QRCode;
     _image?: HTMLImageElement;
+    _imageUri?: string;
     constructor(options: RequiredOptions);
     get width(): number;
     get height(): number;
@@ -23,6 +21,7 @@ export default class QRSVG {
     drawBackground(): void;
     drawDots(filter?: FilterFunction): void;
     drawCorners(): void;
+    imageToBlob(): void;
     loadImage(): Promise<void>;
     drawImage({ width, height, count, dotSize }: {
         width: number;
@@ -38,10 +37,6 @@ export default class QRSVG {
         y: number;
         height: number;
         width: number;
-        name: string;
-    }): void;
-    _createStyle({ color, name }: {
-        color?: string;
         name: string;
     }): void;
 }

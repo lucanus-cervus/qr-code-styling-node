@@ -1,13 +1,33 @@
+/// <reference types="node" />
 export interface UnknownObject {
     [key: string]: any;
 }
-export type DotType = "dots" | "rounded" | "classy" | "classy-rounded" | "square" | "extra-rounded";
-export type CornerDotType = "dot" | "square" | "extra-rounded" | "one-classy" | "classy";
-export type CornerSquareType = "dot" | "square" | "extra-rounded" | "one-classy" | "classy";
-export type Extension = "svg" | "png" | "jpeg" | "webp";
-export type GradientType = "radial" | "linear";
-export type DrawType = "canvas" | "svg";
-export type Gradient = {
+export declare type DotType = "dots" | "rounded" | "classy" | "classy-rounded" | "square" | "extra-rounded" | "rhombus" | "small-square" | "small-dots" | "random-dots" | "dots-horizontal" | "dots-vertical" | "rhombus-vertical" | "square-stripe" | "rounded-stripe" | "random";
+export declare type CornerDotType = "dot" | "square" | "extra-rounded" | "one-classy" | "classy" | "one-classy-rotate" | "classy-reflect" | "rhombus" | "rhombus-extra-rounded" | "star" | "gear";
+export declare type CornerSquareType = "dot" | "square" | "extra-rounded" | "one-classy" | "classy" | "one-classy-rotate" | "dot-one-classy" | "middle-rounded" | "gear";
+export declare type Extension = "svg" | "png" | "jpeg" | "webp";
+export declare type GradientType = "radial" | "linear";
+export declare type DrawType = "canvas" | "svg";
+export interface Canvas extends HTMLCanvasElement {
+    toBuffer?: (type: string) => Buffer;
+    createCanvas?: (width: number, height: number) => Canvas;
+    loadImage?: (image: string) => Promise<HTMLImageElement>;
+}
+export interface Window {
+    Image: typeof HTMLImageElement;
+    XMLSerializer: typeof XMLSerializer;
+    document: Document;
+}
+interface JsDomOptions {
+    resources: string;
+}
+export declare class JSDom {
+    window: Window;
+    _options: JsDomOptions;
+    _input: string;
+    constructor(input: string, options: JsDomOptions);
+}
+export declare type Gradient = {
     type: GradientType;
     rotation?: number;
     colorStops: {
@@ -30,9 +50,9 @@ export interface CornerSquareTypes {
 export interface DrawTypes {
     [key: string]: DrawType;
 }
-export type TypeNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40;
-export type ErrorCorrectionLevel = "L" | "M" | "Q" | "H";
-export type Mode = "Numeric" | "Alphanumeric" | "Byte" | "Kanji";
+export declare type TypeNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40;
+export declare type ErrorCorrectionLevel = "L" | "M" | "Q" | "H";
+export declare type Mode = "Numeric" | "Alphanumeric" | "Byte" | "Kanji";
 export interface QRCode {
     addData(data: string, mode?: Mode): void;
     make(): void;
@@ -50,19 +70,22 @@ export interface QRCode {
     createASCII(cellSize?: number, margin?: number): string;
     renderTo2dContext(context: CanvasRenderingContext2D, cellSize?: number): void;
 }
-export type Options = {
+export declare type Options = {
     type?: DrawType;
     width?: number;
     height?: number;
     margin?: number;
     data?: string;
     image?: string;
+    nodeCanvas?: Canvas;
+    jsdom?: typeof JSDom;
     qrOptions?: {
         typeNumber?: TypeNumber;
         mode?: Mode;
         errorCorrectionLevel?: ErrorCorrectionLevel;
     };
     imageOptions?: {
+        saveAsBlob?: boolean;
         hideBackgroundDots?: boolean;
         imageSize?: number;
         crossOrigin?: string;
@@ -88,38 +111,39 @@ export type Options = {
         gradient?: Gradient;
     };
 };
-export type FilterFunction = (i: number, j: number) => boolean;
-export type DownloadOptions = {
+export declare type FilterFunction = (i: number, j: number) => boolean;
+export declare type DownloadOptions = {
     name?: string;
     extension?: Extension;
 };
-export type DrawArgs = {
+export declare type DrawArgs = {
     x: number;
     y: number;
     size: number;
     rotation?: number;
     getNeighbor?: GetNeighbor;
 };
-export type BasicFigureDrawArgs = {
+export declare type BasicFigureDrawArgs = {
     x: number;
     y: number;
     size: number;
     rotation?: number;
 };
-export type RotateFigureArgs = {
+export declare type RotateFigureArgs = {
     x: number;
     y: number;
     size: number;
     rotation?: number;
     draw: () => void;
 };
-export type DrawArgsCanvas = DrawArgs & {
+export declare type DrawArgsCanvas = DrawArgs & {
     context: CanvasRenderingContext2D;
 };
-export type BasicFigureDrawArgsCanvas = BasicFigureDrawArgs & {
+export declare type BasicFigureDrawArgsCanvas = BasicFigureDrawArgs & {
     context: CanvasRenderingContext2D;
 };
-export type RotateFigureArgsCanvas = RotateFigureArgs & {
+export declare type RotateFigureArgsCanvas = RotateFigureArgs & {
     context: CanvasRenderingContext2D;
 };
-export type GetNeighbor = (x: number, y: number) => boolean;
+export declare type GetNeighbor = (x: number, y: number) => boolean;
+export {};

@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import QRCanvas from "./QRCanvas";
 import QRSVG from "./QRSVG";
 import { RequiredOptions } from "./QROptions";
@@ -15,6 +16,6 @@ export default class QRCodeStyling {
     _getQRStylingElement(extension?: Extension): Promise<QRCanvas | QRSVG>;
     update(options?: Partial<Options>): void;
     append(container?: HTMLElement): void;
-    getRawData(extension?: Extension): Promise<Blob | null>;
+    getRawData(extension?: Extension): Promise<Blob | Buffer | null>;
     download(downloadOptions?: Partial<DownloadOptions> | string): Promise<void>;
 }

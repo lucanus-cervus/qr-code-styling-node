@@ -37,6 +37,36 @@ export default class QRDot {
       case dotTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
+      case dotTypes.rhombus:
+        drawFunction = this._drawRhombus;
+        break;
+      case dotTypes.smallSquare:
+        drawFunction = this._drawSmallSquare;
+        break;
+      case dotTypes.smallDots:
+        drawFunction = this._drawSmallDots;
+        break;
+      case dotTypes.randomDots:
+        drawFunction = this._drawRandomDots;
+        break;
+      case dotTypes.dotsHorizontal:
+        drawFunction = this._drawDotsHorizontal;
+        break;
+      case dotTypes.dotsVertical:
+        drawFunction = this._drawDotsVertical;
+        break;
+      case dotTypes.rhombusVertical:
+        drawFunction = this._drawRhombusVertical;
+        break;
+      case dotTypes.squareStripe:
+        drawFunction = this._drawSquareStripe;
+        break;
+      case dotTypes.roundedStripe:
+        drawFunction = this._drawRoundedStripe;
+        break;
+      case dotTypes.random:
+        drawFunction = this._drawRandom;
+        break;
       case dotTypes.square:
       default:
         drawFunction = this._drawSquare;
@@ -79,6 +109,22 @@ export default class QRDot {
     });
   }
 
+  _basicSmallSquare(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-2.5 * dotSize, -2.5 * dotSize);
+        context.lineTo(2.5 * dotSize, -2.5 * dotSize);
+        context.lineTo(2.5 * dotSize, 2.5 * dotSize);
+        context.lineTo(-2.5 * dotSize, 2.5 * dotSize);
+        context.lineTo(-2.5 * dotSize, -2.5 * dotSize);
+      }
+    });
+  }
+
   //if rotation === 0 - right side is rounded
   _basicSideRounded(args: BasicFigureDrawArgsCanvas): void {
     const { size, context } = args;
@@ -86,10 +132,78 @@ export default class QRDot {
     this._rotateFigure({
       ...args,
       draw: () => {
+        context.moveTo(0, 0);
         context.arc(0, 0, size / 2, -Math.PI / 2, Math.PI / 2);
         context.lineTo(-size / 2, size / 2);
         context.lineTo(-size / 2, -size / 2);
         context.lineTo(0, -size / 2);
+      }
+    });
+  }
+
+  //if rotation === 0 - right side is rhombus
+  _basicSideRhombus(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-size / 2, -size / 2);
+        context.lineTo(-size / 2, size / 2);
+        context.lineTo(0, size / 2);
+        context.lineTo(size / 2, 0);
+        context.lineTo(0, -size / 2);
+        context.lineTo(-size / 2, -size / 2);
+      }
+    });
+  }
+
+  //if rotation === 0 - right side is cut
+  _basicSmallSideSquare(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-size / 2, -2.5 * dotSize);
+        context.lineTo(-size / 2, 2.5 * dotSize);
+        context.lineTo(2.5 * dotSize, 2.5 * dotSize);
+        context.lineTo(2.5 * dotSize, -2.5 * dotSize);
+        context.lineTo(-size / 2, -2.5 * dotSize);
+      }
+    });
+  }
+
+  _basicSmallRectangle(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-size / 2, -2.5 * dotSize);
+        context.lineTo(-size / 2, 2.5 * dotSize);
+        context.lineTo(size / 2, 2.5 * dotSize);
+        context.lineTo(size / 2, -2.5 * dotSize);
+        context.lineTo(-size / 2, -2.5 * dotSize);
+      }
+    });
+  }
+
+  //if rotation === 0 - right side is cut
+  _basicSmallSideDot(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(0, 0);
+        context.arc(0, 0, size / 3, -Math.PI / 2, Math.PI / 2);
+        context.lineTo(-size / 2, 2.5 * dotSize);
+        context.lineTo(-size / 2, -2.5 * dotSize);
+        context.lineTo(0, -2.5 * dotSize);
       }
     });
   }
@@ -148,6 +262,17 @@ export default class QRDot {
       draw: () => {
         context.arc(-size / 2, size / 2, size, -Math.PI / 2, 0);
         context.arc(size / 2, -size / 2, size, Math.PI / 2, Math.PI);
+      }
+    });
+  }
+
+  _basicSmallDots(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.arc(0, 0, size / 3, 0, Math.PI * 2);
       }
     });
   }
@@ -304,6 +429,162 @@ export default class QRDot {
 
     if (!rightNeighbor && !bottomNeighbor) {
       this._basicCornerExtraRounded({ x, y, size, context, rotation: Math.PI / 2 });
+      return;
+    }
+
+    this._basicSquare({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawRhombus({ x, y, size, context }: DrawArgsCanvas): void {
+    this._basicSmallSquare({ x, y, size, context, rotation: Math.PI / 4 });
+  }
+
+  _drawSmallSquare({ x, y, size, context }: DrawArgsCanvas): void {
+    this._basicSmallSquare({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawSmallDots({ x, y, size, context }: DrawArgsCanvas): void {
+    this._basicSmallDots({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawRandomDots({ x, y, size, context }: DrawArgsCanvas): void {
+    Math.random() < 0.25
+      ? this._basicDot({ x, y, size, context, rotation: 0 })
+      : this._basicSmallDots({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawDotsHorizontal({ x, y, size, context, getNeighbor }: DrawArgsCanvas): void {
+    const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
+    const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
+    const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
+    const bottomNeighbor = getNeighbor ? +getNeighbor(0, 1) : 0;
+
+    const neighborsCount = leftNeighbor + rightNeighbor + topNeighbor + bottomNeighbor;
+
+    if (neighborsCount === 0 || (!leftNeighbor && !rightNeighbor)) {
+      this._basicDot({ x, y, size, context, rotation: 0 });
+      return;
+    }
+
+    if (leftNeighbor && !rightNeighbor) {
+      this._basicSideRounded({ x, y, size, context, rotation: 0 });
+      return;
+    } else if (!leftNeighbor && rightNeighbor) {
+      this._basicSideRounded({ x, y, size, context, rotation: Math.PI });
+      return;
+    }
+
+    this._basicSquare({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawDotsVertical({ x, y, size, context, getNeighbor }: DrawArgsCanvas): void {
+    const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
+    const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
+    const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
+    const bottomNeighbor = getNeighbor ? +getNeighbor(0, 1) : 0;
+
+    const neighborsCount = leftNeighbor + rightNeighbor + topNeighbor + bottomNeighbor;
+
+    if (neighborsCount === 0 || (!topNeighbor && !bottomNeighbor)) {
+      this._basicDot({ x, y, size, context, rotation: 0 });
+      return;
+    }
+
+    if (topNeighbor && !bottomNeighbor) {
+      this._basicSideRounded({ x, y, size, context, rotation: Math.PI / 2 });
+      return;
+    } else if (!topNeighbor && bottomNeighbor) {
+      this._basicSideRounded({ x, y, size, context, rotation: -Math.PI / 2 });
+      return;
+    }
+
+    this._basicSquare({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawRhombusVertical({ x, y, size, context, getNeighbor }: DrawArgsCanvas): void {
+    const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
+    const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
+    const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
+    const bottomNeighbor = getNeighbor ? +getNeighbor(0, 1) : 0;
+
+    const neighborsCount = leftNeighbor + rightNeighbor + topNeighbor + bottomNeighbor;
+
+    if (neighborsCount === 0 || (!topNeighbor && !bottomNeighbor)) {
+      this._basicSmallSquare({ x, y, size, context, rotation: Math.PI / 4 });
+      return;
+    }
+
+    if (topNeighbor && !bottomNeighbor) {
+      this._basicSideRhombus({ x, y, size, context, rotation: Math.PI / 2 });
+      return;
+    } else if (!topNeighbor && bottomNeighbor) {
+      this._basicSideRhombus({ x, y, size, context, rotation: -Math.PI / 2 });
+      return;
+    }
+
+    this._basicSquare({ x, y, size, context, rotation: 0 });
+  }
+
+  _drawSquareStripe({ x, y, size, context, getNeighbor }: DrawArgsCanvas): void {
+    const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
+    const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
+    const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
+    const bottomNeighbor = getNeighbor ? +getNeighbor(0, 1) : 0;
+
+    const neighborsCount = leftNeighbor + rightNeighbor + topNeighbor + bottomNeighbor;
+
+    if (neighborsCount === 0 || (!topNeighbor && !bottomNeighbor)) {
+      this._basicSmallSquare({ x, y, size, context, rotation: 0 });
+      return;
+    }
+
+    if (topNeighbor && !bottomNeighbor) {
+      this._basicSmallSideSquare({ x, y, size, context, rotation: Math.PI / 2 });
+      return;
+    } else if (!topNeighbor && bottomNeighbor) {
+      this._basicSmallSideSquare({ x, y, size, context, rotation: -Math.PI / 2 });
+      return;
+    }
+
+    this._basicSmallRectangle({ x, y, size, context, rotation: Math.PI / 2 });
+  }
+
+  _drawRoundedStripe({ x, y, size, context, getNeighbor }: DrawArgsCanvas): void {
+    const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
+    const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
+    const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
+    const bottomNeighbor = getNeighbor ? +getNeighbor(0, 1) : 0;
+
+    const neighborsCount = leftNeighbor + rightNeighbor + topNeighbor + bottomNeighbor;
+
+    if (neighborsCount === 0 || (!topNeighbor && !bottomNeighbor)) {
+      this._basicSmallDots({ x, y, size, context, rotation: 0 });
+      return;
+    }
+
+    if (topNeighbor && !bottomNeighbor) {
+      this._basicSmallSideDot({ x, y, size, context, rotation: Math.PI / 2 });
+      return;
+    } else if (!topNeighbor && bottomNeighbor) {
+      this._basicSmallSideDot({ x, y, size, context, rotation: -Math.PI / 2 });
+      return;
+    }
+
+    this._basicSmallRectangle({ x, y, size, context, rotation: Math.PI / 2 });
+  }
+
+  _drawRandom({ x, y, context, size }: DrawArgsCanvas): void {
+    const randomValue = Math.random();
+    const angle = [0, 90, 180, 270][Math.floor(Math.random() * 4)] * (Math.PI / 180);
+
+    if (randomValue < 0.25) {
+      this._basicDot({ x, y, size, context, rotation: 0 });
+      return;
+    } else if (randomValue < 0.5) {
+      this._basicSideRounded({ x, y, size, context, rotation: angle });
+      return;
+    } else if (randomValue < 0.75) {
+      this._basicCornerRounded({ x, y, size, context, rotation: angle });
       return;
     }
 

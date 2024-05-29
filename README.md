@@ -128,7 +128,7 @@ Property|Type                                                                   
 --------|------------------------------------------------------------------------------|-------------|-------------------
 color   |string                                                                        |`'#000'`     |Color of QR dots
 gradient|object                                                                        |             |Gradient of QR dots
-type    |string (`'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded'`)|`'square'`   |Style of QR dots
+type    |string (`'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded' 'rhombus' 'small-square' 'small-dots' 'random-dots' 'dots-horizontal' 'dots-vertical' 'rhombus-vertical' 'square-stripe' 'rounded-stripe' 'random'`)|`'square'`   |Style of QR dots
 
 `options.backgroundOptions` structure
 
@@ -143,7 +143,7 @@ Property|Type                                                           |Default
 --------|---------------------------------------------------------------|-------------|-----------------
 color   |string                                                         |             |Color of Corners Square
 gradient|object                                                         |             |Gradient of Corners Square
-type    |string (`'dot' 'square' 'extra-rounded' 'one-classy' 'classy'`)|             |Style of Corners Square
+type    |string (`'dot' 'square' 'extra-rounded' 'one-classy' 'classy' 'one-classy-rotate' 'dot-one-classy' 'middle-rounded' 'gear'`)|             |Style of Corners Square
 
 `options.cornersDotOptions` structure
 
@@ -151,7 +151,7 @@ Property|Type                                                     |Default Value
 --------|---------------------------------------------------------|-------------|-----------------
 color   |string                                                   |             |Color of Corners Dot
 gradient|object                                                   |             |Gradient of Corners Dot
-type    |string (`'dot' 'square' 'extra-rounded' 'one-classy' 'classy'`)|             |Style of Corners Dot
+type    |string (`'dot' 'square' 'extra-rounded' 'one-classy' 'classy' 'one-classy-rotate' 'classy-reflect' 'rhombus' 'rhombus-extra-rounded' 'star' 'gear'`)|             |Style of Corners Dot
 
 Gradient structure
 

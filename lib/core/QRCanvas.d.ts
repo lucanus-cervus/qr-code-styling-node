@@ -1,7 +1,7 @@
 import { RequiredOptions } from "./QROptions";
-import { QRCode, Gradient, FilterFunction } from "../types";
+import { QRCode, Gradient, FilterFunction, Canvas } from "../types";
 export default class QRCanvas {
-    _canvas: HTMLCanvasElement;
+    _canvas: Canvas;
     _options: RequiredOptions;
     _qr?: QRCode;
     _image?: HTMLImageElement;
@@ -9,7 +9,7 @@ export default class QRCanvas {
     get context(): CanvasRenderingContext2D | null;
     get width(): number;
     get height(): number;
-    getCanvas(): HTMLCanvasElement;
+    getCanvas(): Canvas;
     clear(): void;
     drawQR(qr: QRCode): Promise<void>;
     drawBackground(): void;

@@ -11,6 +11,7 @@ export interface RequiredOptions extends Options {
         errorCorrectionLevel: ErrorCorrectionLevel;
     };
     imageOptions: {
+        saveAsBlob: boolean;
         hideBackgroundDots: boolean;
         imageSize: number;
         crossOrigin?: string;
