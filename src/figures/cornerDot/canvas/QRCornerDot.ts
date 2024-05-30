@@ -511,9 +511,44 @@ export default class QRCornerDot {
         );
         context.lineTo(offset + 5.73498 * scale, offset + 0.478283 * scale);
         context.closePath();
+        context.stroke();
+      }
+    });
+  }
 
-        // Set stroke or fill
-        context.stroke(); // or
+  _basicSmallSquare(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-2.5 * dotSize, -2.5 * dotSize);
+        context.lineTo(2.5 * dotSize, -2.5 * dotSize);
+        context.lineTo(2.5 * dotSize, 2.5 * dotSize);
+        context.lineTo(-2.5 * dotSize, 2.5 * dotSize);
+        context.lineTo(-2.5 * dotSize, -2.5 * dotSize);
+      }
+    });
+  }
+
+  _basicSmallRoundedSquare(args: BasicFigureDrawArgsCanvas): void {
+    const { size, context } = args;
+    const dotSize = size / 7;
+    const radius = dotSize;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        context.moveTo(-2.5 * dotSize + radius, -2.5 * dotSize);
+        context.lineTo(2.5 * dotSize - radius, -2.5 * dotSize);
+        context.arcTo(2.5 * dotSize, -2.5 * dotSize, 2.5 * dotSize, -2.5 * dotSize + radius, radius);
+        context.lineTo(2.5 * dotSize, 2.5 * dotSize - radius);
+        context.arcTo(2.5 * dotSize, 2.5 * dotSize, 2.5 * dotSize - radius, 2.5 * dotSize, radius);
+        context.lineTo(-2.5 * dotSize + radius, 2.5 * dotSize);
+        context.arcTo(-2.5 * dotSize, 2.5 * dotSize, -2.5 * dotSize, 2.5 * dotSize - radius, radius);
+        context.lineTo(-2.5 * dotSize, -2.5 * dotSize + radius);
+        context.arcTo(-2.5 * dotSize, -2.5 * dotSize, -2.5 * dotSize + radius, -2.5 * dotSize, radius);
       }
     });
   }
@@ -549,12 +584,12 @@ export default class QRCornerDot {
 
   _drawRhombus({ x, y, size, context, rotation }: DrawArgsCanvas): void {
     const rotate = rotation ? rotation + Math.PI / 4 : Math.PI / 4;
-    this._basicSquare({ x, y, size, context, rotation: rotate });
+    this._basicSmallSquare({ x, y, size, context, rotation: rotate });
   }
 
   _drawRhombusExtraRounded({ x, y, size, context, rotation }: DrawArgsCanvas): void {
     const rotate = rotation ? rotation + Math.PI / 4 : Math.PI / 4;
-    this._basicRounded({ x, y, size, context, rotation: rotate });
+    this._basicSmallRoundedSquare({ x, y, size, context, rotation: rotate });
   }
 
   _drawStar({ x, y, size, context }: DrawArgsCanvas): void {

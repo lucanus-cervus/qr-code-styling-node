@@ -16,6 +16,8 @@ export default class QRCornerDot {
     _basicClassyReflect(args: BasicFigureDrawArgsCanvas): void;
     _basicStar(args: BasicFigureDrawArgsCanvas): void;
     _basicGear(args: BasicFigureDrawArgsCanvas): void;
+    _basicSmallSquare(args: BasicFigureDrawArgsCanvas): void;
+    _basicSmallRoundedSquare(args: BasicFigureDrawArgsCanvas): void;
     _drawDot({ x, y, size, context, rotation }: DrawArgsCanvas): void;
     _drawSquare({ x, y, size, context, rotation }: DrawArgsCanvas): void;
     _drawRounded({ x, y, size, context, rotation }: DrawArgsCanvas): void;
