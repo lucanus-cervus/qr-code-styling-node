@@ -80,8 +80,8 @@ export default class QRDot {
   }
 
   _basicDot(args: BasicFigureDrawArgs): void {
-    const { size, x, y } = args;
-
+    let { size, x, y } = args;
+    size = 8;
     this._rotateFigure({
       ...args,
       draw: () => {
